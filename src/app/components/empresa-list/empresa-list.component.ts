@@ -11,6 +11,7 @@ import { EditSocioModalComponent } from '../edit-socio-modal/edit-socio-modal.co
 import { Socio } from '../../models/socio.model';
 
 
+
 @Component({
   selector: 'app-empresa-list',
   standalone: true,
@@ -38,14 +39,16 @@ export class EmpresaListComponent implements OnInit {
   showEditModal = false;
   // Guarda a empresa selecionada para edição
   selectedEmpresa: Empresa | null = null;
+  selectedSocio: Socio | null = null;
+
   showEditSocioModal: boolean = false;  // <-- Adicione esta propriedade
-  
-  constructor(private apiService: ApiService) {}
+
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.loadEmpresas();
   }
-  selectedSocio: Socio | null = null;
 
   // Método para carregar a lista de empresas via API
   loadEmpresas(): void {
@@ -77,7 +80,7 @@ export class EmpresaListComponent implements OnInit {
   public deleteEmpresa(empresa: Empresa, event: Event): void {
     // Impede que o clique se propague para o toggle
     event.stopPropagation();
-    
+
     // Solicita confirmação ao usuário antes de deletar
     if (confirm('Você tem certeza que deseja deletar esta empresa?')) {
       // Chama o método do ApiService para deletar a empresa do backend
@@ -159,80 +162,105 @@ export class EmpresaListComponent implements OnInit {
   }
 
   // Adicione estas variáveis ao seu componente:
-showCreateSocioModal = false;
-selectedEmpresaForSocio: Empresa | null = null;
+  showCreateSocioModal = false;
+  selectedEmpresaForSocio: Empresa | null = null;
 
-// Método para abrir o modal de cadastro de sócio
-openCreateSocioModal(empresa: Empresa, event: Event): void {
-  event.stopPropagation(); // Evita que o clique propague e acione outro evento (como toggle)
-  this.selectedEmpresa = empresa;
-  this.showCreateSocioModal = true;
-}
-
-// Método para fechar o modal de cadastro de sócio
-closeCreateSocioModal(): void {
-  this.showCreateSocioModal = false;
-  this.selectedEmpresa = null;
-}
-
-
-
-
-onSocioCreated(novoSocio: any): void {
-  if (this.selectedEmpresa) {
-    // Chame o método do ApiService para criar o sócio na empresa selecionada
-    this.apiService.createSocio(this.selectedEmpresa.id, novoSocio).subscribe({
-      next: (socioCriado) => {
-        // Adiciona o sócio à lista de sócios da empresa
-        if (this.selectedEmpresa!.socios) {
-          this.selectedEmpresa!.socios.push(socioCriado);
-        } else {
-          this.selectedEmpresa!.socios = [socioCriado];
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao cadastrar sócio:', err);
-      }
-    });
+  // Método para abrir o modal de cadastro de sócio
+  openCreateSocioModal(empresa: Empresa, event: Event): void {
+    event.stopPropagation(); // Evita que o clique propague e acione outro evento (como toggle)
+    this.selectedEmpresa = empresa;
+    this.showCreateSocioModal = true;
   }
-}
 
-// Dentro de src/app/components/empresa-list/empresa-list.component.ts
-
-// Método para abrir o modal de edição de sócio
-editSocio(empresa: Empresa, socio: Socio, event: Event): void {
-  event.stopPropagation(); // Para evitar que o clique acione o toggle da empresa
-  this.selectedEmpresa = empresa;
-  this.selectedSocio = { ...socio }; // Cria uma cópia do sócio para edição
-  this.showEditSocioModal = true;
-}
-
-// Método para fechar o modal de edição de sócio
-closeEditSocioModal(): void {
-  this.showEditSocioModal = false;
-  this.selectedSocio = null;
-  // Opcionalmente, se não precisar manter o contexto da empresa, limpe selectedEmpresa
-  // this.selectedEmpresa = null;
-}
-
-// Método para receber os dados atualizados do sócio do modal
-onSocioUpdated(updatedSocio: Socio): void {
-  if (this.selectedEmpresa && this.selectedEmpresa.socios) {
-    // Chama o ApiService para atualizar o sócio no banco de dados
-    this.apiService.updateSocio(this.selectedEmpresa.id, updatedSocio.id, updatedSocio).subscribe({
-      next: (socioResp) => {
-        const index = this.selectedEmpresa!.socios!.findIndex(s => s.id === updatedSocio.id);
-        if (index !== -1) {
-          this.selectedEmpresa!.socios![index] = socioResp;
-        }
-      },
-      error: err => {
-        console.error('Erro ao atualizar sócio:', err);
-      }
-    });
+  // Método para fechar o modal de cadastro de sócio
+  closeCreateSocioModal(): void {
+    this.showCreateSocioModal = false;
+    this.selectedEmpresa = null;
   }
-  this.closeEditSocioModal();
-}
+
+
+
+
+  onSocioCreated(novoSocio: any): void {
+    if (this.selectedEmpresa) {
+      // Chame o método do ApiService para criar o sócio na empresa selecionada
+      this.apiService.createSocio(this.selectedEmpresa.id, novoSocio).subscribe({
+        next: (socioCriado) => {
+          // Adiciona o sócio à lista de sócios da empresa
+          if (this.selectedEmpresa!.socios) {
+            this.selectedEmpresa!.socios.push(socioCriado);
+          } else {
+            this.selectedEmpresa!.socios = [socioCriado];
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao cadastrar sócio:', err);
+        }
+      });
+    }
+  }
+
+  // Dentro de src/app/components/empresa-list/empresa-list.component.ts
+
+  // Método para abrir o modal de edição de sócio
+  editSocio(empresa: Empresa, socio: Socio, event: Event): void {
+    event.stopPropagation(); // Para evitar que o clique acione o toggle da empresa
+    this.selectedEmpresa = empresa;
+    this.selectedSocio = { ...socio }; // Cria uma cópia do sócio para edição
+    this.showEditSocioModal = true;
+  }
+
+  // Método para fechar o modal de edição de sócio
+  closeEditSocioModal(): void {
+    this.showEditSocioModal = false;
+    this.selectedSocio = null;
+    
+  }
+
+
+  deleteSocio(empresa: Empresa, socio: Socio, event: Event): void {
+    // Impede que o clique se propague e acione o toggle da empresa
+
+    event.stopPropagation();
+
+    // Solicita confirmação ao usuário
+    if (confirm('Deseja deletar este sócio?')) {
+      // Chama o método do ApiService para deletar o sócio do banco de dados
+      this.apiService.deleteSocio(empresa.id, socio.id).subscribe({
+        next: () => {
+          // Se a deleção for bem-suc
+          // edida, remove o sócio da lista local
+          empresa.socios = (empresa.socios || []).filter(s => s.id !== socio.id);
+
+          empresa.socios = empresa.socios.filter(s => s.id !== socio.id);
+          console.log('Sócio deletado com sucesso!');
+        },
+        error: err => {
+          console.error('Erro ao deletar sócio:', err);
+          // Aqui você pode exibir uma mensagem de erro para o usuário, se desejar
+        }
+      });
+    }
+  }
+
+  // Método para receber os dados atualizados do sócio do modal
+  onSocioUpdated(updatedSocio: Socio): void {
+    if (this.selectedEmpresa && this.selectedEmpresa.socios) {
+      // Chama o ApiService para atualizar o sócio no banco de dados
+      this.apiService.updateSocio(this.selectedEmpresa.id, updatedSocio.id, updatedSocio).subscribe({
+        next: (socioResp) => {
+          const index = this.selectedEmpresa!.socios!.findIndex(s => s.id === updatedSocio.id);
+          if (index !== -1) {
+            this.selectedEmpresa!.socios![index] = socioResp;
+          }
+        },
+        error: err => {
+          console.error('Erro ao atualizar sócio:', err);
+        }
+      });
+    }
+    this.closeEditSocioModal();
+  }
 
 
 }

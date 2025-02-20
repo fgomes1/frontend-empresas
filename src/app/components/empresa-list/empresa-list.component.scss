@@ -173,6 +173,32 @@
       }
     }
   }
-
+  .edit-socio-btn,
+  .delete-socio-btn {
+    background: transparent; /* Remove fundo padrão */
+    border: none;            /* Remove a borda */
+    outline: none;           /* Remove o outline quando focado */
+    padding: 0;              /* Remove padding extra */
+    margin: 0 0.5rem;        /* Ajuste de espaçamento */
+    cursor: pointer;         /* Mostra o cursor pointer */
+    font-size: 1.2rem;       /* Tamanho do ícone */
+    transition: color 0.3s ease;
+  }
+  
+  .edit-socio-btn {
+    color: #007bff;
+  }
+  
+  .edit-socio-btn:hover {
+    color: #0056b3;
+  }
+  
+  .delete-socio-btn {
+    color: #dc3545;
+  }
+  
+  .delete-socio-btn:hover {
+    color: #a71d2a;
+  }
   
 }

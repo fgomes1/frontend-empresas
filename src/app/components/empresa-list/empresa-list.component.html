@@ -41,7 +41,9 @@
                 <i class="bi bi-pencil"></i>
               </button>
               <!-- Botão para deletar o sócio (se já existir) -->
-              
+              <button class="delete-socio-btn" (click)="deleteSocio(empresa, socio, $event)">
+                <i class="bi bi-x-circle"></i>
+              </button>
             </div>
           </li>
         </ul>
