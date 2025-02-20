@@ -43,6 +43,7 @@ export class ApiService {
     return this.http.get<Socio>(`${this.baseUrl}/empresas/${empresaId}/socios/${socioId}`);
   }
 
+  
   createSocio(empresaId: number, socio: Socio): Observable<Socio> {
     return this.http.post<Socio>(`${this.baseUrl}/empresas/${empresaId}/socios`, socio);
   }

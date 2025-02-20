@@ -24,8 +24,8 @@
               <i class="bi bi-trash"></i>
             </button>
             <!-- Botão para cadastrar sócio para essa empresa -->
-            <button class="socio-btn" (click)="openCreateSocioModal(empresa); $event.stopPropagation()">
-              <i class="bi bi-plus-circle"></i> <!-- ícone para adicionar sócio -->
+            <button class="socio-btn" (click)="openCreateSocioModal(empresa, $event)">
+              <i class="bi bi-plus-circle"></i>
             </button>
             <span class="socios-count">
               ({{ empresa.socios?.length || 0 }} sócios)

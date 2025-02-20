@@ -13,17 +13,15 @@ export class CreateSocioModalComponent {
   @Output() closeModal = new EventEmitter<void>();
   @Output() socioCreated = new EventEmitter<any>();
 
-  // Formulário reativo para cadastrar sócio. Aqui, estamos considerando apenas o nome.
   socioForm: FormGroup = new FormGroup({
     nome: new FormControl('', [Validators.required])
-    // Adicione outros campos se necessário, como cargo, contato, etc.
+    // Adicione outros campos conforme necessário
   });
 
   onSubmit(): void {
     if (this.socioForm.valid) {
       // Emite os dados do novo sócio para o componente pai
       this.socioCreated.emit(this.socioForm.value);
-      // Fecha o modal
       this.closeModal.emit();
     }
   }

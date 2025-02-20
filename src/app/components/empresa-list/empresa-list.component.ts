@@ -148,26 +148,36 @@ showCreateSocioModal = false;
 selectedEmpresaForSocio: Empresa | null = null;
 
 // Método para abrir o modal de cadastro de sócio
-openCreateSocioModal(empresa: Empresa): void {
-  this.selectedEmpresaForSocio = empresa;
+openCreateSocioModal(empresa: Empresa, event: Event): void {
+  event.stopPropagation(); // Evita que o clique propague e acione outro evento (como toggle)
+  this.selectedEmpresa = empresa;
   this.showCreateSocioModal = true;
 }
 
 // Método para fechar o modal de cadastro de sócio
 closeCreateSocioModal(): void {
   this.showCreateSocioModal = false;
-  this.selectedEmpresaForSocio = null;
+  this.selectedEmpresa = null;
 }
 
-// Método chamado quando um novo sócio é criado
+
+
 onSocioCreated(novoSocio: any): void {
-  if (this.selectedEmpresaForSocio) {
-    // Atualiza a lista de sócios da empresa selecionada
-    if (this.selectedEmpresaForSocio.socios) {
-      this.selectedEmpresaForSocio.socios.push(novoSocio);
-    } else {
-      this.selectedEmpresaForSocio.socios = [novoSocio];
-    }
+  if (this.selectedEmpresa) {
+    // Chame o método do ApiService para criar o sócio na empresa selecionada
+    this.apiService.createSocio(this.selectedEmpresa.id, novoSocio).subscribe({
+      next: (socioCriado) => {
+        // Adiciona o sócio à lista de sócios da empresa
+        if (this.selectedEmpresa!.socios) {
+          this.selectedEmpresa!.socios.push(socioCriado);
+        } else {
+          this.selectedEmpresa!.socios = [socioCriado];
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao cadastrar sócio:', err);
+      }
+    });
   }
 }
 
