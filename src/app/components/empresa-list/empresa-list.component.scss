@@ -1,0 +1,35 @@
+.empresa-list {
+    /* Fundo geral, bordas e arredondamento para a “caixa” maior */
+    background-color: #c1d8f0; /* tom claro, pode ajustar */
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 600px; /* para centralizar e limitar a largura */
+    margin: 2rem auto; /* centraliza no meio da tela e adiciona margem superior */
+  
+    h2 {
+      color: #333;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  
+    /* Remove a formatação padrão de lista */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    /* Cada item de empresa como um “cartão” */
+    .empresa-item {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #fafafa;
+      }
+    }
+  }

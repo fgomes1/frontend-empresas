@@ -1,0 +1,15 @@
+.button-access {
+    background-color: #1c5d99; /* Azul principal */
+    color: #ffffff;            /* Texto em branco */
+    border: none;
+    border-radius: 6px;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #333; /* Cor preta no hover */
+    }
+  }
+  
