@@ -6,6 +6,7 @@ import { Empresa } from '../../models/empresa.model';
 import { ButtonComponent } from '../button/button.component';
 import { CreateCompanyModalComponent } from '../modal/modal.component';
 import { EditCompanyModalComponent } from '../../edit-company-modal/edit-company-modal.component';
+import { CreateSocioModalComponent } from '../create-socio-modal/create-socio-modal.component';
 
 @Component({
   selector: 'app-empresa-list',
@@ -16,7 +17,8 @@ import { EditCompanyModalComponent } from '../../edit-company-modal/edit-company
     RouterModule,
     ButtonComponent,
     CreateCompanyModalComponent,
-    EditCompanyModalComponent
+    EditCompanyModalComponent,
+    CreateSocioModalComponent
   ],
   templateUrl: './empresa-list.component.html',
   styleUrls: ['./empresa-list.component.scss']
@@ -140,4 +142,35 @@ export class EmpresaListComponent implements OnInit {
     console.log('Cadastrar Sócio acionado', event);
     // Implementar a lógica para cadastrar um sócio ou abrir o modal de cadastro de sócio
   }
+
+  // Adicione estas variáveis ao seu componente:
+showCreateSocioModal = false;
+selectedEmpresaForSocio: Empresa | null = null;
+
+// Método para abrir o modal de cadastro de sócio
+openCreateSocioModal(empresa: Empresa): void {
+  this.selectedEmpresaForSocio = empresa;
+  this.showCreateSocioModal = true;
 }
+
+// Método para fechar o modal de cadastro de sócio
+closeCreateSocioModal(): void {
+  this.showCreateSocioModal = false;
+  this.selectedEmpresaForSocio = null;
+}
+
+// Método chamado quando um novo sócio é criado
+onSocioCreated(novoSocio: any): void {
+  if (this.selectedEmpresaForSocio) {
+    // Atualiza a lista de sócios da empresa selecionada
+    if (this.selectedEmpresaForSocio.socios) {
+      this.selectedEmpresaForSocio.socios.push(novoSocio);
+    } else {
+      this.selectedEmpresaForSocio.socios = [novoSocio];
+    }
+  }
+}
+
+}
+
+
