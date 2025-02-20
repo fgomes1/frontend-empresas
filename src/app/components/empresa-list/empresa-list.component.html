@@ -33,8 +33,16 @@
           </div>
         </div>
         <ul *ngIf="empresa.open">
-          <li *ngFor="let socio of empresa.socios">
-            {{ socio.nome }}
+          <li *ngFor="let socio of empresa.socios" class="socio-item">
+            <span class="socio-name">{{ socio.nome }}</span>
+            <div class="socio-actions">
+              <!-- Botão para editar o sócio -->
+              <button class="edit-socio-btn" (click)="editSocio(empresa, socio, $event)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <!-- Botão para deletar o sócio (se já existir) -->
+              
+            </div>
           </li>
         </ul>
       </li>
@@ -70,3 +78,10 @@
   (closeModal)="closeEditModal()"
   (companyUpdated)="onCompanyUpdated($event)">
 </app-edit-company-modal>
+
+<app-edit-socio-modal
+  *ngIf="showEditSocioModal"
+  [socio]="selectedSocio"
+  (closeModal)="closeEditSocioModal()"
+  (socioUpdated)="onSocioUpdated($event)">
+</app-edit-socio-modal>
