@@ -64,6 +64,23 @@
     }
   }
   
+  .delete-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+    color: #dc3545; 
+    transition: color 0.3s ease;
+  
+    &:hover {
+      color: #a71d2a; 
+    }
+  }
+
   /* Nome da empresa */
   .empresa-nome {
     font-family: 'Arial', sans-serif;

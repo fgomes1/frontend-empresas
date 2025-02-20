@@ -66,6 +66,26 @@ export class EmpresaListComponent implements OnInit {
     }
   }
 
+  public deleteEmpresa(empresa: Empresa, event: Event): void {
+    // Impede que o clique se propague para o toggle
+    event.stopPropagation();
+    
+    // Solicita confirmação ao usuário antes de deletar
+    if (confirm('Você tem certeza que deseja deletar esta empresa?')) {
+      // Chama o método do ApiService para deletar a empresa do backend
+      this.apiService.deleteEmpresa(empresa.id).subscribe({
+        next: () => {
+          // Se a deleção for bem-sucedida, atualiza a lista removendo a empresa deletada
+          this.empresas = this.empresas.filter(e => e.id !== empresa.id);
+        },
+        error: err => {
+          console.error('Erro ao deletar empresa:', err);
+          // Você pode exibir uma mensagem de erro ao usuário se desejar
+        }
+      });
+    }
+  }
+
   // Método chamado quando o botão "Cadastrar Empresa" é clicado (abre modal de criação)
   openCreateModal(): void {
     this.showCreateModal = true;

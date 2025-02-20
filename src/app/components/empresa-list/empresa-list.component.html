@@ -23,9 +23,12 @@
             <button class="edit-btn" (click)="editEmpresa(empresa, $event)">
               <i class="bi bi-pencil"></i>
             </button>
+            <button class="delete-btn" (click)="deleteEmpresa(empresa, $event)">
+              <i class="bi bi-trash"></i>
+            </button>
             <!-- Exibe o número de sócios -->
             <span class="socios-count">
-              ({{ empresa.socios?.length || 0 }} sócios)
+              ({{ empresa.socios?.length  }} sócios)
             </span>
           </div>
         </div>
