@@ -37,6 +37,7 @@ export class ApiService {
   getSocios(empresaId: number): Observable<Socio[]> {
     return this.http.get<Socio[]>(`${this.baseUrl}/empresas/${empresaId}/socios`);
   }
+  
 
   getSocio(empresaId: number, socioId: number): Observable<Socio> {
     return this.http.get<Socio>(`${this.baseUrl}/empresas/${empresaId}/socios/${socioId}`);

@@ -1,58 +1,95 @@
 .empresa-list {
-  background-color: #c1d8f0;
-  border-radius: 8px;
-  padding: 1rem;
-  max-width: 800px; /* Define a largura máxima */
-  margin: 2rem auto; /* Centraliza o contêiner horizontalmente */
-
-  h2 {
-    color: #333;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  /* O contêiner que envolve a <ul> */
-  .empresa-items-container {
-    max-height: 20rem; /* Ajuste conforme desejar */
-    overflow-y: auto;  /* Cria barra de rolagem vertical */
-    margin-bottom: 1rem; 
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .empresa-item {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    background-color: #c1d8f0;
     border-radius: 8px;
-    margin-bottom: 1rem;
     padding: 1rem;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #fafafa;
-    }
-  }
-
-  .empresa-list-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    width: 100%;
-
-    app-button {
-      flex: 1 1 calc(50% - 0.5rem); /* Ajuste o cálculo para espaçamento simétrico */
+    max-width: 800px; /* Define a largura máxima */
+    margin: 2rem auto; /* Centraliza o contêiner horizontalmente */
+  
+    h2 {
+      color: #333;
+      margin-bottom: 1rem;
       text-align: center;
-      box-sizing: border-box;
     }
+  
+    /* O contêiner que envolve a <ul> */
+    .empresa-items-container {
+      max-height: 20rem; /* Ajuste conforme desejar */
+      overflow-y: auto;  /* Cria barra de rolagem vertical */
+      margin-bottom: 1rem; 
+    }
+  
+    .arrow-down::before {
+      content: '▼'; /* ou use um ícone */
+      margin-left: 0.5rem;
+    }
+  
+    .arrow-up::before {
+      content: '▲';
+      margin-left: 0.5rem;
+    }
+  
+    ul {
+      margin-top: 0.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .empresa-item {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #d0c5c5;
+      }
+    }
+  
+    .empresa-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
 
-    @media (max-width: 600px) {
+    }
+  
+    .empresa-nome {
+      font-family: 'Arial', sans-serif; /* Fonte para o nome da empresa */
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  
+    .socio-nome {
+      font-family: 'Courier New', monospace; /* Fonte para o nome do sócio */
+      font-size: 1rem;
+      font-style: italic;
+    }
+  
+    .empresa-list-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      width: 100%;
+  
       app-button {
-        flex: 1 1 100%;
+        flex: 1 1 calc(50% - 0.5rem); /* Ajuste o cálculo para espaçamento simétrico */
+        text-align: center;
+        box-sizing: border-box;
+      }
+  
+      @media (max-width: 600px) {
+        app-button {
+          flex: 1 1 100%;
+        }
       }
     }
   }
-}

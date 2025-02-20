@@ -5,26 +5,32 @@
     <div *ngIf="error">{{ error }}</div>
   
     <div class="empresa-items-container">
-      <ul *ngIf="!loading && !error">
-        <li *ngFor="let empresa of empresas" class="empresa-item">
-          {{ empresa.nome }}
-        </li>
+      
+  <ul>
+    <li *ngFor="let empresa of empresas" class="empresa-item">
+      <!-- Cabeçalho da empresa, clicável para expandir -->
+      <div class="empresa-header" (click)="toggleEmpresa(empresa)">
+        {{ empresa.nome }}
+        
+        <!-- Flecha indicando aberto/fechado -->
+         
+        <span [class]="empresa.open ? 'arrow-up' : 'arrow-down'"></span>
+      </div>
+
+      <!-- Lista de sócios, só aparece se 'open' for true -->
+      <ul *ngIf="empresa.open && empresa.socios?.length">
+        <li *ngFor="let socio of empresa.socios">{{ socio.nome }}</li>
       </ul>
+    </li>
+  </ul>
     </div>
   
     <div class="empresa-list-buttons">
-      <!-- Botão que abre o modal -->
-      <app-button
-        label="Cadastrar Empresa"
-        classes="button button-primary button-large"
-        (buttonClick)="openModal()">
-      </app-button>
+            <app-button         label="Cadastrar Empresa"         classes="button button-primary button-large"
+        (buttonClick)="handleSubmit($event)">       </app-button>
   
-      <app-button
-        label="Cadastrar Sócio"
-        classes="button button-primary button-large"
-        (buttonClick)="handleSubmit($event)">
-      </app-button>
+      <app-button         label="Cadastrar Sócio"         classes="button button-primary button-large"
+        (buttonClick)="handleSubmit($event)">       </app-button>
     </div>
   </div>
   

@@ -43,6 +43,15 @@ export class EmpresaListComponent implements OnInit {
     });
   }
 
+  public toggleEmpresa(empresa: Empresa): void {
+    empresa.open = !empresa.open;
+    if (empresa.open && !empresa.socios) {
+      this.apiService.getSocios(empresa.id).subscribe(socios => {
+        empresa.socios = socios;
+      });
+    }
+  }
+
   // Abre o modal ao clicar em "Cadastrar Empresa"
   openModal(): void {
     this.showModal = true;
