@@ -100,7 +100,16 @@ export class EmpresaListComponent implements OnInit {
 
   // Quando o modal de criação emite um evento com a nova empresa criada, adiciona à lista
   onCompanyCreated(novaEmpresa: Empresa): void {
-    this.empresas.push(novaEmpresa);
+    console.log('Nova empresa recebida do modal:', novaEmpresa); // Verifique o que está sendo recebido
+    this.apiService.createEmpresa(novaEmpresa).subscribe({
+      next: (empresaCriada) => {
+        console.log('Empresa cadastrada com sucesso!', empresaCriada); // Verifique a resposta da API
+        this.empresas.push(empresaCriada);
+      },
+      error: (err) => {
+        console.error('Erro ao cadastrar empresa:', err);
+      }
+    });
   }
 
   // Método para abrir o modal de edição.
@@ -159,6 +168,7 @@ closeCreateSocioModal(): void {
   this.showCreateSocioModal = false;
   this.selectedEmpresa = null;
 }
+
 
 
 
