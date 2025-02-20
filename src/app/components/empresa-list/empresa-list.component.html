@@ -1,13 +1,22 @@
 <div class="empresa-list">
-    <h2>Lista de Empresas</h2>
-  
-    <div *ngIf="loading">Carregando...</div>
-    <div *ngIf="error">{{ error }}</div>
-  
+  <h2>Lista de Empresas</h2>
+
+  <div *ngIf="loading">Carregando...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div class="empresa-items-container">
     <ul *ngIf="!loading && !error">
       <li *ngFor="let empresa of empresas" class="empresa-item">
         {{ empresa.nome }}
       </li>
     </ul>
   </div>
+  
+  <div class="empresa-list-buttons">
+    <app-button label="Cadastrar Empresa" classes="button button-primary button-large"
+        (buttonClick)="handleSubmit($event)"> </app-button>
 
+    <app-button label="Cadastrar Sócio" classes="button button-primary button-large"
+        (buttonClick)="handleSubmit($event)"> </app-button>
+  </div>
+</div>
