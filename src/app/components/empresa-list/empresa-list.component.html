@@ -1,43 +1,66 @@
 <div class="empresa-list">
-    <h2>Lista de Empresas</h2>
-  
-    <div *ngIf="loading">Carregando...</div>
-    <div *ngIf="error">{{ error }}</div>
-  
-    <div class="empresa-items-container">
-      
-  <ul>
-    <li *ngFor="let empresa of empresas" class="empresa-item">
-      <!-- Cabeçalho da empresa, clicável para expandir -->
-      <div class="empresa-header" (click)="toggleEmpresa(empresa)">
-        {{ empresa.nome }}
-        
-        <!-- Flecha indicando aberto/fechado -->
-         
-        <span [class]="empresa.open ? 'arrow-up' : 'arrow-down'"></span>
-      </div>
+  <h2>Lista de Empresas</h2>
 
-      <!-- Lista de sócios, só aparece se 'open' for true -->
-      <ul *ngIf="empresa.open && empresa.socios?.length">
-        <li *ngFor="let socio of empresa.socios">{{ socio.nome }}</li>
-      </ul>
-    </li>
-  </ul>
-    </div>
-  
-    <div class="empresa-list-buttons">
-            <app-button         label="Cadastrar Empresa"         classes="button button-primary button-large"
-        (buttonClick)="handleSubmit($event)">       </app-button>
-  
-      <app-button         label="Cadastrar Sócio"         classes="button button-primary button-large"
-        (buttonClick)="handleSubmit($event)">       </app-button>
-    </div>
+  <div *ngIf="loading">Carregando...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div class="empresa-items-container">
+    <ul *ngIf="!loading && !error">
+      <li *ngFor="let empresa of empresas" class="empresa-item">
+        <div class="empresa-header">
+          <div class="header-left" (click)="toggleEmpresa(empresa)">
+            <!-- Seta para toggle -->
+            <span class="toggle-arrow">
+              <i [ngClass]="empresa.open ? 'bi bi-caret-up-fill' : 'bi bi-caret-down-fill'"></i>
+            </span>
+            <!-- Nome da empresa com link para detalhes -->
+            <span [routerLink]="['/empresa', empresa.id]" class="empresa-name">
+              {{ empresa.nome }}
+            </span>
+          </div>
+          <div class="header-right">
+            <!-- Botão de edição com stopPropagation() para evitar conflito com o toggle -->
+            <button class="edit-btn" (click)="editEmpresa(empresa, $event)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <!-- Exibe o número de sócios -->
+            <span class="socios-count">
+              ({{ empresa.socios?.length || 0 }} sócios)
+            </span>
+          </div>
+        </div>
+        <!-- Lista de sócios, aparece se empresa.open for true -->
+        <ul *ngIf="empresa.open">
+          <li *ngFor="let socio of empresa.socios">
+            {{ socio.nome }}
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
-  
-  <!-- Exibe o modal via *ngIf -->
-  <app-create-company-modal
-    *ngIf="showModal"
-    (closeModal)="closeModal()"
-    (companyCreated)="onCompanyCreated($event)">
-  </app-create-company-modal>
-  
+
+  <div class="empresa-list-buttons">
+    <app-button label="Cadastrar Empresa" classes="button button-primary button-large"
+      (buttonClick)="openCreateModal()">
+    </app-button>
+
+    <app-button label="Cadastrar Sócio" classes="button button-primary button-large"
+      (buttonClick)="handleSubmit($event)">
+    </app-button>
+  </div>
+</div>
+
+<!-- Modal de criação -->
+<app-create-company-modal
+  *ngIf="showCreateModal"
+  (closeModal)="closeCreateModal()"
+  (companyCreated)="onCompanyCreated($event)">
+</app-create-company-modal>
+
+<!-- Modal de edição -->
+<app-edit-company-modal
+  *ngIf="showEditModal"
+  [company]="selectedEmpresa"
+  (closeModal)="closeEditModal()"
+  (companyUpdated)="onCompanyUpdated($event)">
+</app-edit-company-modal>

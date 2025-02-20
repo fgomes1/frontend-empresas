@@ -1,95 +1,144 @@
 .empresa-list {
-    background-color: #c1d8f0;
-    border-radius: 8px;
-    padding: 1rem;
-    max-width: 800px; /* Define a largura máxima */
-    margin: 2rem auto; /* Centraliza o contêiner horizontalmente */
-  
-    h2 {
-      color: #333;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-  
-    /* O contêiner que envolve a <ul> */
-    .empresa-items-container {
-      max-height: 20rem; /* Ajuste conforme desejar */
-      overflow-y: auto;  /* Cria barra de rolagem vertical */
-      margin-bottom: 1rem; 
-    }
-  
-    .arrow-down::before {
-      content: '▼'; /* ou use um ícone */
-      margin-left: 0.5rem;
-    }
-  
-    .arrow-up::before {
-      content: '▲';
-      margin-left: 0.5rem;
-    }
-  
-    ul {
-      margin-top: 0.5rem;
-      padding-left: 1.5rem;
-    }
-    
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  
-    .empresa-item {
-      background-color: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background-color: #d0c5c5;
-      }
-    }
-  
-    .empresa-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-size: 1.2rem;
-      font-weight: bold;
+  background-color: #c1d8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 800px; /* Define a largura máxima */
+  margin: 2rem auto; /* Centraliza o contêiner horizontalmente */
 
+  h2 {
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  /* Contêiner que envolve a lista para limitar a altura e permitir rolagem */
+  .empresa-items-container {
+    max-height: 20rem;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+
+  /* Estilização da seta de toggle */
+  .arrow-down::before {
+    content: '▼';
+    margin-left: 0.5rem;
+  }
+  
+  .arrow-up::before {
+    content: '▲';
+    margin-left: 0.5rem;
+  }
+
+  /* Remove a formatação padrão da lista */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Estilização dos itens da lista (cartões) */
+  .empresa-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: #d0c5c5;
+    }
+  }
+  
+  /* Header de cada item */
+  .empresa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff; /* Cor de destaque, ajustável */
+    &:hover {
+      color: #0056b3;
+    }
+  }
+  
+  /* Nome da empresa */
+  .empresa-nome {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex: 1;  /* Ocupa o espaço disponível */
+    text-decoration: none;
+    
+  }
+  
+  /* Container para a seta e ícone de edição */
+  .empresa-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Estilização do ícone de edição (pincel) */
+  .edit-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #007bff; /* Cor de destaque, ajustável */
+    transition: color 0.3s;
+    
+    &:hover {
+      color: #0056b3;
+    }
+  }
+  .edit-btn {
+    background: transparent; /* Remove o fundo padrão */
+    border: none;            /* Remove a borda */
+    outline: none;           /* Remove o contorno (outline) quando focado */
+    box-shadow: none;        /* Remove qualquer sombra de foco */
+    cursor: pointer;
+    padding: 0;
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+    color: #007bff;          /* Cor desejada */
+    transition: color 0.3s ease;
+  
+    &:hover {
+      color: #0056b3;
     }
   
-    .empresa-nome {
-      font-family: 'Arial', sans-serif; /* Fonte para o nome da empresa */
-      font-size: 1.2rem;
-      font-weight: bold;
+    &:focus {
+      outline: none;         /* Garante que o foco não exiba o outline */
+      box-shadow: none;
+    }
+  }
+  
+  /* Estilização para contagem de sócios */
+  .socios-count {
+    font-size: 0.875rem;
+    color: #666;
+    margin-left: 0.5rem;
+  }
+  
+  /* Botões da listagem */
+  .empresa-list-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+  
+    app-button {
+      flex: 1 1 calc(50% - 0.5rem);
+      text-align: center;
+      box-sizing: border-box;
     }
   
-    .socio-nome {
-      font-family: 'Courier New', monospace; /* Fonte para o nome do sócio */
-      font-size: 1rem;
-      font-style: italic;
-    }
-  
-    .empresa-list-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      width: 100%;
-  
+    @media (max-width: 600px) {
       app-button {
-        flex: 1 1 calc(50% - 0.5rem); /* Ajuste o cálculo para espaçamento simétrico */
-        text-align: center;
-        box-sizing: border-box;
-      }
-  
-      @media (max-width: 600px) {
-        app-button {
-          flex: 1 1 100%;
-        }
+        flex: 1 1 100%;
       }
     }
   }
+}
